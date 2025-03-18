@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính Chu Vi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 20%;
+            align-items: center;
+            height: 20%;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        label, select, input, button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        input, select {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        function showForm() {
+            let shape = document.getElementById("shape").value;
+            document.getElementById("circle-form").style.display = (shape === "circle") ? "block" : "none";
+            document.getElementById("rectangle-form").style.display = (shape === "rectangle") ? "block" : "none";
+            document.getElementById("triangle-form").style.display = (shape === "triangle") ? "block" : "none";
+        }
+
+        function calculatePerimeter() {
+            let shape = document.getElementById("shape").value;
+            let perimeter = 0;
+
+            if (shape === "circle") {
+                let radius = parseFloat(document.getElementById("radius").value);
+                perimeter = 2 * Math.PI * radius;
+                area = Math.PI * radius * radius;
+            } else if (shape === "rectangle") {
+                let length = parseFloat(document.getElementById("length").value);
+                let width = parseFloat(document.getElementById("width").value);
+                perimeter = 2 * (length + width);
+                area = length * width;
+            } else if (shape === "triangle") {
+                let a = parseFloat(document.getElementById("sideA").value);
+                let b = parseFloat(document.getElementById("sideB").value);
+                let c = parseFloat(document.getElementById("sideC").value);
+                perimeter = a + b + c;
+                let s = perimeter / 2;
+                area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+            }
+
+            document.getElementById("result").innerText = "Chu vi: " + perimeter.toFixed(2) + " | Diện tích: " + area.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <h2>Tính Chu Vi</h2>
+    <label for="shape">Chọn hình:</label>
+    <select id="shape" onchange="showForm()">
+        <option value="circle">Hình tròn</option>
+        <option value="rectangle">Hình chữ nhật</option>
+        <option value="triangle">Hình tam giác</option>
+    </select>
+
+    <div id="circle-form" style="display:block;">
+        <label for="radius">Bán kính:</label>
+        <input type="number" id="radius" step="any">
+    </div>
+
+    <div id="rectangle-form" style="display:none;">
+        <label for="length">Chiều dài:</label>
+        <input type="number" id="length" step="any">
+        <label for="width">Chiều rộng:</label>
+        <input type="number" id="width" step="any">
+    </div>
+
+    <div id="triangle-form" style="display:none;">
+        <label for="sideA">Cạnh A:</label>
+        <input type="number" id="sideA" step="any">
+        <label for="sideB">Cạnh B:</label>
+        <input type="number" id="sideB" step="any">
+        <label for="sideC">Cạnh C:</label>
+        <input type="number" id="sideC" step="any">
+    </div>
+
+    <button onclick="calculatePerimeter()">Tính</button>
+    <p id="result"></p>
+</body>
+</html>
